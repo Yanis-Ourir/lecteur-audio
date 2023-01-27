@@ -10,11 +10,8 @@ $sqlCount = "SELECT COUNT(*) FROM musics";
 $musicNumber = $pdo->query($sqlCount);
 $musicCount = $musicNumber->fetchColumn();
 
-$id = $_GET['id'];
-$sqlComments = "SELECT * FROM comments WHERE id = $id";
-$commentsList = $pdo->prepare($sqlComments);
-$commentsList->execute();
-$comments = $commentsList->fetchAll();
+
+
 ?>
 
 <!DOCTYPE html>
@@ -38,17 +35,14 @@ $comments = $commentsList->fetchAll();
             <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
+            <div class="offcanvas offcanvas-end text-bg-dark lh-base" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
                 <div class="offcanvas-header">
                     <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Les commentaires : </h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                 </div>
-                <?php
-                foreach ($comments as $comment) {
-                    echo "<div>" . "<p>" . $comment['pseudo'] . "</p> <br> <p>" . $comment['comments'] . "</p></div>";
-                } ?>
+                <?php include("../process/comments-list.php"); ?>
 
-                <form action="../process/add-user.php?id=<?= $music['id'] ?>" method="POST">
+                <form action="../process/add-user.php?id=<?= $music['id'] ?>" method="POST" class="d-flex flex-column justify-content-end p-3" style="height: 100vh;">
                     <div class="mb-3">
                         <label class="form-label">Pseudo :</label>
                         <input type="text" class="form-control" id="username" name="pseudo" style="width: 50%;">
@@ -65,7 +59,7 @@ $comments = $commentsList->fetchAll();
 
 
     <div class="player">
-        <h1><?php echo $music['musicName'] . " - " . $music['Artist'] ?></h1>
+        <h1 class="title-player"><?php echo $music['musicName'] . " - " . $music['Artist'] ?></h1>
         <div>
             <img src="<?= $music['musicImage'] ?>" alt="" class="image-player">
         </div>
@@ -87,7 +81,6 @@ $comments = $commentsList->fetchAll();
         </div>
 
     </div>
-
 
     <script>
         let nextMusic = document.getElementById('fast-forward');
@@ -128,26 +121,51 @@ $comments = $commentsList->fetchAll();
             }
         })
 
+            audioItem.addEventListener('ended', function(e) {
+            if (loopMusic.classList.contains("test") === false) {
+                
 
+                    if (<?= $id ?> >= <?= $musicCount ?>) {
+                        window.location.href = "player.php?id=<?= $id - $musicCount + 1 ?>";
+                    } else {
+                        window.location.href = "player.php?id=<?= $id + 1 ?>";
+                    }
 
-
-
-
-
-
-
-
+                
+            }
+})
 
 
 
 
         randomMusic.addEventListener('click', () => {
             randomMusic.style.color = '#17caff';
+            randomMusic.classList.toggle("randomize");
 
             audioItem.addEventListener('ended', () => {
                 window.location.href = "player.php?id=<?= rand(1, $musicCount) ?>";
             })
+
+            if (!randomMusic.classList.contains("randomize")) {
+
+                randomMusic.style.color = 'white';
+                audioItem.addEventListener('ended', function(e) {
+
+                    if (<?= $id ?> >= <?= $musicCount ?>) {
+                        window.location.href = "player.php?id=<?= $id - $musicCount + 1 ?>";
+                    } else {
+                        window.location.href = "player.php?id=<?= $id + 1 ?>";
+                    }
+
+                })
+
+            }
         })
+
+
+
+
+
 
 
 
