@@ -90,7 +90,7 @@ $musicCount = $musicNumber->fetchColumn();
         let loopMusic = document.getElementById('loop-music');
 
         let audioItem = document.getElementById('audio');
-        audioItem.volume = 0.01;
+        audioItem.volume = 0.50;
 
 
 
@@ -121,19 +121,19 @@ $musicCount = $musicNumber->fetchColumn();
             }
         })
 
-            audioItem.addEventListener('ended', function(e) {
+        audioItem.addEventListener('ended', function(e) {
             if (loopMusic.classList.contains("test") === false) {
-                
 
-                    if (<?= $id ?> >= <?= $musicCount ?>) {
-                        window.location.href = "player.php?id=<?= $id - $musicCount + 1 ?>";
-                    } else {
-                        window.location.href = "player.php?id=<?= $id + 1 ?>";
-                    }
 
-                
+                if (<?= $id ?> >= <?= $musicCount ?>) {
+                    window.location.href = "player.php?id=<?= $id - $musicCount + 1 ?>";
+                } else {
+                    window.location.href = "player.php?id=<?= $id + 1 ?>";
+                }
+
+
             }
-})
+        })
 
 
 
