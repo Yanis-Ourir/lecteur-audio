@@ -1,5 +1,5 @@
 <?php
-include('../process/connexion.php');
+include('./process/connexion.php');
 $id = $_GET['id'];
 
 $statement = $pdo->prepare('SELECT * FROM musics WHERE id = :id');
@@ -22,7 +22,7 @@ $musicCount = $musicNumber->fetchColumn();
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Music Player</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./front/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
@@ -31,7 +31,7 @@ $musicCount = $musicNumber->fetchColumn();
 <body class="allmusic-body">
     <nav class="navbar navbar-dark bg-dark fixed-top">
         <div class="container-fluid">
-            <a class="navbar-brand retour" href="allMusic.php">Retour vers vos musiques</a>
+            <a class="navbar-brand retour" href="index.php">Retour vers vos musiques</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -40,7 +40,7 @@ $musicCount = $musicNumber->fetchColumn();
                     <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Les commentaires : </h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                 </div>
-                <?php include("../process/comments-list.php"); ?>
+                <?php include("./process/comments-list.php"); ?>
 
                 <form action="../process/add-user.php?id=<?= $music['id'] ?>" method="POST" class="d-flex flex-column justify-content-end p-3" style="height: 100vh;">
                     <div class="mb-3">
@@ -90,7 +90,7 @@ $musicCount = $musicNumber->fetchColumn();
         let loopMusic = document.getElementById('loop-music');
 
         let audioItem = document.getElementById('audio');
-        audioItem.volume = 0.50;
+        audioItem.volume = 0.20;
 
 
 

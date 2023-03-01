@@ -8,7 +8,7 @@ try {
     $sqlDelete = $pdo->prepare('DELETE FROM musics WHERE id = ?');
     $musicDelete = $sqlDelete->execute([$idMusic]);
 
-    header('Location: http://localhost:90/lecteur-audio/front/allMusic.php?');
+    header('Location: https://yanis-lecteur-audio.projets.garage404.com');
 } catch (PDOException $e) {
     die('Erreur : ' . $e->getMessage());
 }

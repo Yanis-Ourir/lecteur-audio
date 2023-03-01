@@ -23,7 +23,7 @@ try {
     $sqlAddComment = "INSERT INTO `comments` (`id`,`commentaire`, `id_user`, `id_music`) VALUES (NULL, '$commentaire', $plsID, '$idNewMusic')";
     $pdo->exec($sqlAddComment);
 
-    header("Location: http://localhost:90/lecteur-audio/front/player.php?id=$idNewMusic");
+    header("Location: https://yanis-lecteur-audio.projets.garage404/player.php?id=$idNewMusic");
 } catch (Exception $e) {
     die('Erreur : ' . $e->getMessage());
 }
